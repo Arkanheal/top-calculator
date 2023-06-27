@@ -1,6 +1,6 @@
-/* * {
+* {
   border: 2px solid red;
-} */
+}
 
 body {
   margin: 0;
@@ -9,13 +9,13 @@ body {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  font-size: 2vw;
+  font-size: 30px;
 }
 
 .calculator {
   border: 1px solid black;
   border-radius: 15px;
-  width: 25vw;
+  width: 500px;
 
   display: flex;
   flex-direction: column;
@@ -32,19 +32,25 @@ body {
   text-align: right;
 }
 
-.rows {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  flex-wrap: wrap;
-  gap: 2%;
+.buttons {
   padding: 2%;
 }
 
+.rows {
+  display: flex;
+  text-align: center;
+  gap: 2%;
+  padding-bottom: 16px;
+}
+
 .button {
-  aspect-ratio: 1/0.25;
   flex: 1 1 16%;
   border: 1px solid blueviolet;
-  border-radius: 100%;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
