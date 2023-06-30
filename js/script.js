@@ -50,7 +50,7 @@ function operate(firstNumber, secondNumber, operator) {
       console.error(operator);
       break;
   }
-  return result;
+  return result.toFixed(6);
 }
 
 let firstNumber;
