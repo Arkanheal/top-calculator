@@ -72,7 +72,9 @@ numberElements.forEach(element => {
 const operatorElements = document.querySelectorAll(".operator");
 operatorElements.forEach(element => {
   element.addEventListener("click", () => {
-    if (operator || screenDiv.textContent === "0") return;
+    const content = screenDiv.textContent;
+    const lastChar = content.charAt(content.length - 1);
+    if (operator || content === "0" || lastChar === ".") return;
     firstNumber = parseFloat(screenDiv.textContent);
     operator = element.textContent;
     screenDiv.textContent += ` ${operator} `;
@@ -98,6 +100,13 @@ resultElement.addEventListener("click", () => {
 const clearElement = document.querySelector(".clear");
 clearElement.addEventListener("click", () => {
   clear();
+});
+
+const floatElement = document.querySelector(".float");
+floatElement.addEventListener("click", () => {
+  if (!operator && screenDiv.textContent.includes(".")) return;
+  if (operator && screenDiv.textContent.split(" ")[2].includes(".")) return;
+  screenDiv.textContent += ".";
 });
 
 const displayError = (err) => {
