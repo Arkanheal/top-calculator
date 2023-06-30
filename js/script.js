@@ -102,6 +102,24 @@ clearElement.addEventListener("click", () => {
   clear();
 });
 
+const backspaceElement = document.querySelector(".backspace");
+backspaceElement.addEventListener("click", () => {
+  const content = screenDiv.textContent;
+  if (!content || content == "0") return;
+  let lastChar = content.charAt(content.length - 1);
+  let newDisplay = "";
+  // Only way we have a space (without HTML manual editing) is to be after an
+  // operator
+  if (lastChar === " ") {
+    // We need to remove the last 3 elements (two spaces and the operator)
+    operator = "";
+    newDisplay = screenDiv.textContent.slice(0, -3);
+  } else {
+    newDisplay = screenDiv.textContent.slice(0, -1);
+  }
+  screenDiv.textContent = newDisplay.length === 0 ? "0" : newDisplay;
+});
+
 const floatElement = document.querySelector(".float");
 floatElement.addEventListener("click", () => {
   if (!operator && screenDiv.textContent.includes(".")) return;
