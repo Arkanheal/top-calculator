@@ -37,7 +37,8 @@ const getResult = () => {
   resetError();
   const displaySplit = screenDiv.textContent.split(' ');
   if (displaySplit.length !== 3) return;
-  const result = operate(firstNumber, parseFloat(displaySplit[2]), operator);
+  secondNumber = parseFloat(displaySplit[2]);
+  const result = operate(firstNumber, secondNumber, operator);
   if (isNaN(result)) {
     displayError(result);
     clear();
@@ -56,7 +57,10 @@ const addNumber = (num) => {
 const addOperator = (op) => {
   const content = screenDiv.textContent;
   const lastChar = content.charAt(content.length - 1);
-  if (operator || content === "0" || lastChar === ".") return;
+  if (content === "0" || lastChar === ".") return;
+  if (operator) {
+    getResult()
+  }
   firstNumber = parseFloat(screenDiv.textContent);
   operator = op;
   screenDiv.textContent += ` ${operator} `;
@@ -139,7 +143,7 @@ numberElements.forEach(element => {
 
 const operatorElements = document.querySelectorAll(".operator");
 operatorElements.forEach(element => {
-  element.addEventListener("click", () => {
+  element.addEventListener("click", (e) => {
     addOperator(e.target.textContent);
   });
 });
