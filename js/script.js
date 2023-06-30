@@ -15,6 +15,15 @@ function divide(a, b) {
   return a / b;
 }
 
+function power(a, b) {
+  return a ** b;
+}
+
+function modulo(a, b) {
+  if (b === 0) return "ERR"
+  return a % b;
+}
+
 function operate(firstNumber, secondNumber, operator) {
   let result = 0;
   switch (operator) {
@@ -29,6 +38,12 @@ function operate(firstNumber, secondNumber, operator) {
       break;
     case "/":
       result = divide(firstNumber, secondNumber);
+      break;
+    case "^":
+      result = power(firstNumber, secondNumber);
+      break;
+    case "%":
+      result = modulo(firstNumber, secondNumber);
       break;
     default:
       result = "ERR Invalid Operator";
