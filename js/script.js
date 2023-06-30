@@ -155,7 +155,6 @@ backspaceElement.addEventListener("click", backspace);
 
 // Keyboard
 document.addEventListener("keydown", (e) => {
-  console.log(e.key);
   let key = e.key;
   if (key === "Backspace") {
     backspace();
