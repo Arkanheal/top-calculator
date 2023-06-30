@@ -11,7 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (b === 0) return "ERR"
+  if (b === 0) return "ERR: Dividing by zero"
   return a / b;
 }
 
@@ -20,7 +20,7 @@ function power(a, b) {
 }
 
 function modulo(a, b) {
-  if (b === 0) return "ERR"
+  if (b === 0) return "ERR: Dividing by zero"
   return a % b;
 }
 
@@ -50,43 +50,70 @@ function operate(firstNumber, secondNumber, operator) {
       console.error(operator);
       break;
   }
-  return result.toFixed(6);
+  return isNaN(result) ? result : Math.round(result * 1_000_000) / 1_000_000;
 }
 
 let firstNumber;
 let operator = "";
 
 const screenDiv = document.querySelector(".screen");
-let screenDisplay = ""
+const errorDiv = document.querySelector(".error");
 
 const numberElements = document.querySelectorAll(".number");
 numberElements.forEach(element => {
   element.addEventListener("click", () => {
+    resetError();
     if (firstNumber && !operator) return;
     let number = element.textContent;
-    screenDisplay == "0" ? screenDisplay = number : screenDisplay += number;
-    screenDiv.textContent = screenDisplay;
+    screenDiv.textContent == "0" ? screenDiv.textContent = number : screenDiv.textContent += number;
   });
 });
 
 const operatorElements = document.querySelectorAll(".operator");
 operatorElements.forEach(element => {
   element.addEventListener("click", () => {
-    if (operator || screenDisplay === "") return;
-    firstNumber = parseFloat(screenDisplay);
+    if (operator || screenDiv.textContent === "0") return;
+    firstNumber = parseFloat(screenDiv.textContent);
     operator = element.textContent;
-    screenDisplay += ` ${operator} `;
-    screenDiv.textContent = screenDisplay;
+    screenDiv.textContent += ` ${operator} `;
   });
 });
 
 const resultElement = document.querySelector(".result");
 resultElement.addEventListener("click", () => {
-  const displaySplit = screenDisplay.split(' ');
+  resetError();
+  const displaySplit = screenDiv.textContent.split(' ');
   if (displaySplit.length !== 3) return;
   const result = operate(firstNumber, parseFloat(displaySplit[2]), operator);
-  screenDisplay = result;
-  firstNumber = screenDisplay;
+  if (isNaN(result)) {
+    displayError(result);
+    clear();
+    return;
+  }
+  firstNumber = result;
   operator = "";
-  screenDiv.textContent = screenDisplay;
+  screenDiv.textContent = result;
 });
+
+const clearElement = document.querySelector(".clear");
+clearElement.addEventListener("click", () => {
+  clear();
+});
+
+const displayError = (err) => {
+  errorDiv.textContent = err;
+  errorDiv.style.display = "block";
+}
+
+
+const resetError = () => {
+  errorDiv.textContent = "";
+  errorDiv.style.display = "none";
+}
+
+const clear = () => {
+  firstNumber = "";
+  operator = "";
+  secondNumber = "";
+  screenDiv.textContent = "0";
+}

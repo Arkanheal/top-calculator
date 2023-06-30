@@ -1,7 +1,3 @@
-* {
-  border: 2px solid red;
-}
-
 body {
   margin: 0;
   padding: 50px;
@@ -21,6 +17,15 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+}
+
+.error {
+  display: none;
+  border: 2px solid red;
+  background-color : orange;
+  border-radius : 5px;
+  padding : 16px;
+  margin-bottom : 1rem;
 }
 
 .screen {
